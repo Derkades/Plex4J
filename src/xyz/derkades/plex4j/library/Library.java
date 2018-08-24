@@ -2,7 +2,7 @@ package xyz.derkades.plex4j.library;
 
 import xyz.derkades.plex4j.Server;
 
-public abstract class Library {
+public class Library {
 	
 	private Server server;
 	private String title;

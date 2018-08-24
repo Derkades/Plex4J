@@ -107,7 +107,7 @@ public class Server {
 			if (type.equals("artist")) {
 				library = new MusicLibrary(this, id, title);
 			} else {
-				continue;
+				library = new Library(this, id, title, type);
 				// Unsupported library. Feel free to add support for any missing library types.
 			}
 
