@@ -11,3 +11,18 @@ This project is not hosted in a maven repository. To use it, manually install it
 # TODO
 * Methods for getting artist (not album artist), track number and year.
 * Support for video files
+
+# Example code
+[Getting a plex authentication token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/)
+
+```
+Server server = new Server("https://plex.yourdomain.net", token);
+System.out.println("This server has " + server.getLibraries().size() + " libraries.");
+
+for (Library library : server.getLibraries()){
+	if (library instanceof MusicLibrary){
+		MusicLibrary musicLibrary = (MusicLibrary) library;
+		System.out.println("This library has " + musicLibrary.getArtists().size() + " artists");
+	}
+}
+```
