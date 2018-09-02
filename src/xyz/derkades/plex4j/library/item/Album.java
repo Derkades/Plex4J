@@ -59,13 +59,17 @@ public class Album extends LibraryItem {
 				
 			String key = trackNode.getAttributes().getNamedItem("key").getTextContent();
 			String title = trackNode.getAttributes().getNamedItem("title").getTextContent();
+			String artist = trackNode.getAttributes().getNamedItem("originalTitle").getTextContent();
+			String year = trackNode.getAttributes().getNamedItem("year").getTextContent();
+			@SuppressWarnings("unused") String track = null; // TODO HOW DOES ONE GET TRACK NUMBER??
+			
 				
 			//<Track><Media><Part file="">
 			String file = trackNode.getChildNodes().item(1)
 					.getChildNodes().item(1)
 					.getAttributes().getNamedItem("file").getTextContent();
 				
-			tracks.add(new Track(key, this, title, file));
+			tracks.add(new Track(key, this, title, file, artist, year));
 		}
 		
 		return tracks;
