@@ -36,8 +36,10 @@ public class Album extends LibraryItem {
 	public List<Track> getTracks() throws IOException, SAXException {
 		Server server = this.getLibrary().getServer();
 
+		String url = String.format("%s%s?X-Plex-Token=%s", server.getBaseUrl(), this.getKey(), server.getToken());
+		
 		URLConnection connection = new URL(
-				String.format("%s%s?X-Plex-Token=%s", server.getBaseUrl(), this.getKey(), server.getToken()))
+				url)
 				.openConnection();
 			
 		Document doc = server.getDocumentBuilder().parse(connection.getInputStream());
@@ -56,11 +58,24 @@ public class Album extends LibraryItem {
 			if (!type.equals("track")) {
 				continue;
 			}
-				
+			
 			String key = trackNode.getAttributes().getNamedItem("key").getTextContent();
 			String title = trackNode.getAttributes().getNamedItem("title").getTextContent();
-			String artist = trackNode.getAttributes().getNamedItem("originalTitle").getTextContent();
-			String year = trackNode.getAttributes().getNamedItem("year").getTextContent();
+			
+			String artist;
+			try {
+				artist = trackNode.getAttributes().getNamedItem("originalTitle").getTextContent();
+			} catch (NullPointerException e){
+				artist = "";
+			}
+			
+			String year;
+			try {
+				year = trackNode.getAttributes().getNamedItem("year").getTextContent();
+			} catch (NullPointerException e){
+				year = "";
+			}
+
 			@SuppressWarnings("unused") String track = null; // TODO HOW DOES ONE GET TRACK NUMBER??
 			
 				
